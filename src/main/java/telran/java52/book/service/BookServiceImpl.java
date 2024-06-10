@@ -97,17 +97,15 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public AuthorDto[] removeAuthor(String author) {
+    public AuthorDto removeAuthor(String author) {
         Author authorEntity = authorRepository.findById(author).orElseThrow(EntityNotFoundException::new);
         Set<Book> books = bookRepository.findByAuthorsName(author);
-        
         for (Book book : books) {
             book.getAuthors().remove(authorEntity);
         }
-        bookRepository.saveAll(books);
-        authorRepository.delete(authorEntity);
-
-        return new AuthorDto[] { modelMapper.map(authorEntity, AuthorDto.class) };
+        bookRepository.saveAll(books);          
+        authorRepository.delete(authorEntity);    
+        return modelMapper.map(authorEntity, AuthorDto.class);
     }
 
 }

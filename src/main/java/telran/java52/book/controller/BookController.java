@@ -44,7 +44,7 @@ public class BookController {
     }
     
     @DeleteMapping("/authors/{author}")
-    public AuthorDto[] removeAuthor(@PathVariable String author) {
+    public AuthorDto removeAuthor(@PathVariable String author) {
         return bookService.removeAuthor(author);
     }
 }
